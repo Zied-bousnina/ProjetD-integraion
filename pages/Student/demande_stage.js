@@ -26,7 +26,8 @@ const usePosts= () =>{
        cin: '',
        nom2:'',
        prenom2:'',
-       cin2:''
+       cin2:'',
+       file:''
 
 
     },
@@ -34,13 +35,18 @@ const usePosts= () =>{
     onSubmit,
   })
 
+
   async function onSubmit(values) {
+    var formdata = new FormData()
+      formdata.append('file', values.file)
+      formdata.append('upload_preset', 'ml_default')
+      console.log(formdata.get('file'))
     const options = {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({...values, id_etud: session.data.user.email, commentaire:"", ok:false})
     }
-    console.log(options)
+    console.log(values.file)
 
     await fetch('http://localhost:3000/api/auth/addDemandeDeStage', options)
       .then(res=> res.json())
@@ -229,6 +235,18 @@ const handleshow= e=>{
 </select>
 
         </div>
+           <div className="mb-8">
+        <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Chaier de charge</label>
+   <input name='file'  accept="image/*" id='file' type="file" {...formik.getFieldProps('file')} class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+
+
+
+
+
+
+
+      </div>
+
 
 
 

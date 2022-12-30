@@ -84,6 +84,7 @@ export default function SideBarAdmin({user =[]}){
 
   // Google Sign OUt
   async function  handlerSignOut(){
+    localStorage.clear();
     await router.push('/')
     signOut()
   }

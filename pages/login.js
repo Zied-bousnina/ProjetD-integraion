@@ -44,6 +44,7 @@ const useLogin= () => {
     // Google handler Function
     async function handleGoogleSignIn() {
       signIn('google', {callbackUrl: "http://localhost:3000"})
+      
     }
 
     // GitHub Handler Login

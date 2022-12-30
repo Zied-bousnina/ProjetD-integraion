@@ -151,7 +151,7 @@ function Edit() {
             ? router.push('/')
             : setid(JSON.parse(localStorage?.getItem('user_id')).unique_id)
 
-        router.replace('/edit', undefined, { shallow: true })
+        router.replace('/cv/edit', undefined, { shallow: true })
         let newObjectuser = JSON.parse(localStorage?.getItem('user_id'))
         newObjectuser?.unique_id !== ' ' ? setSigneedIn(true) : setSigneedIn(false)
 

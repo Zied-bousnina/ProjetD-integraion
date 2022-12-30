@@ -75,6 +75,7 @@ export default function SideBarProf({user =[]}){
 
   // Google Sign OUt
   async function handlerSignOut(){
+    localStorage.clear();
     await router.push('/')
     signOut()
   }

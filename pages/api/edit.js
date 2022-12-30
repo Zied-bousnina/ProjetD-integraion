@@ -6,7 +6,7 @@ const handler = async (req, res) => {
     try {
         const xata = getXataClient()
 
-        const record = await xata.db.basic_info.update(`${req.body.id}`, {
+        const record = await xata.db.cv.update(`${req.body.id}`, {
             Full_name: req.body.Full_name,
             Email: req.body.Email,
             Address: req.body.Address,

@@ -13,6 +13,7 @@ import Extras from '../../components/Extras'
 import { GlobalContext } from '../../context/globalContext'
 import { signupContext } from '../../context/signupContext'
 import Layout from '../../components/Layout'
+import Home from '../../styles/Home.module.css'
 
 function steptwo() {
     const [maininfo, setMainInfo] = useState(false)
@@ -28,6 +29,7 @@ function steptwo() {
 
 
     const SideData = [
+
         {
             Icon: '',
             title: 'Experience',
@@ -73,6 +75,7 @@ function steptwo() {
 
     useEffect(() => {
         router.replace('/cv/steptwo', undefined, { shallow: true })
+        // console.log(user)
 
 
 
@@ -103,14 +106,20 @@ function steptwo() {
     })
 
     const onSubmit3 = (data) => {
+        console.log(data)
         setloading(true)
         if (
+            data.full_name !== ' ' &&
+            data.role !== ' ' &&
+            data.phonenumber !== ' ' &&
+            data. email !== ' ' &&
+            data.address !== ' ' &&
             data.achievement1 !== ' ' &&
             data.achievement2 !== ' ' &&
             data.achievement3 !== ' ' &&
             data.PhoneNumber !== ' ' &&
             data.Skilllevel !== ' ' &&
-            // data.certificateone[0].name !== ' ' &&
+            data.certificateone[0].name !== ' ' &&
             data.cityortown !== ' ' &&
             data.companyname !== ' ' &&
             data.contactPerson !== ' ' &&
@@ -133,9 +142,10 @@ function steptwo() {
             const fileName = generateRandom(4)
             var formdata = new FormData()
             // formdata.append('file', data.certificateone[0], '[PROXY]')
-            formdata.append('upload_preset', 'ml_default')
+            formdata.append('upload_preset', 'prime-asset')
             formdata.append('public_id', `${fileName}`)
             formdata.append('api_key', `${process.env.REACT_APP_CLOUDINARY_API_KEY}`)
+            // formdata.append('api_key', `${918861728551361}`)
 
             var requestOptions = {
                 method: 'POST',
@@ -144,7 +154,8 @@ function steptwo() {
             }
 
             fetch(
-                'https://api.cloudinary.com/v1_1/femakin/auto/upload',
+                'https://api.cloudinary.com/v1_1/dcuafrhwc/auto/upload',
+
                 requestOptions,
             )
                 .then(async (response) => {
@@ -197,21 +208,22 @@ function steptwo() {
                             }),
                         )
 
-                        fetch('/api/upload', {
+                        fetch('http://localhost:3000/api/Cv', {
                             headers: {
                                 'Content-Type': 'application/json',
                                 'Accept': 'application/json'
                             },
                             method: 'POST',
                             body: JSON.stringify({
-                                Full_name: user.Full_name,
-                                Email: user.Email,
-                                Role: user.Role,
-                                Phone_number: user.Phone_number,
-                                Address: user.Address,
-                                Profile_Photo_Url: user.Profile_Photo_Url,
-                                Public_id: user.Public_id,
-                                unique_id: user.unique_id,
+                                // Full_name: "zied"
+                                Full_name: data.Full_name,
+                                Email: data.Email,
+                                Role: data.Role,
+                                Phone_number: data.Phone_number,
+                                Address: data.Address,
+                                Profile_Photo_Url: data.Profile_Photo_Url,
+                                Public_id: data.Public_id,
+                                unique_id: localStorage.getItem('unique_id'),
                                 Job_Title_Ex: data.jobtitle,
                                 City_town_Ex: data.cityortown,
                                 Employer_Ex: data.employer,
@@ -242,6 +254,7 @@ function steptwo() {
                         })
                             .then((response) => response.json())
                             .then(async (response) => {
+                                console.log(localStorage.getItem('user_id'))
                                 return (
                                     // console.log(response),
                                     setloading(false),
@@ -259,6 +272,8 @@ function steptwo() {
                                         pathname: '/cv/preview',
                                         query: { ...data, data: { TeamA: 'yes', TeamB: 'no' } },
                                     })
+                                    // console.log(data)
+                                    // console.log(data)
                                 )
                             })
                             .catch((err) => console.error(err))
@@ -269,6 +284,7 @@ function steptwo() {
                 })
         }
     }
+    // console.log(JSON.parse(localStorage?.getItem('user_id')))
 
     return (
         <Layout>
@@ -277,7 +293,9 @@ function steptwo() {
                 <div className="prd_container">
 
 
+
                     <div className={SteptwoStyle.product_body_container}>
+
 
 
                         <div className={SteptwoStyle.menu_content}>
@@ -322,6 +340,134 @@ function steptwo() {
                                                     Work experience
                                                 </p>
                                             </div>
+                                            <div className={Home.resume_body}>
+
+
+<div className={Home.resume_main}>
+
+
+<div className={Home.right_form}>
+<h1 className={Home.form_title}>Create my Resume</h1>
+
+<p className={Home.sub_title}>
+ With quick Resume, you can build the right resume today.
+</p>
+
+<div className={Home.resume_form}>
+
+   <div className={Home.resumelinkinfo}>
+     <label className={Home.getstartedlabel} htmlFor="">
+       Full Name
+     </label>
+
+     <input
+       defaultValue=""
+       required
+       className={Home.getstartedinput}
+       {...register('full_name')}
+       placeholder="FullName"
+       type="text"
+     />
+   </div>
+
+   <div className={Home.resumelinkinfo}>
+     <label className={Home.getstartedlabel} htmlFor="">
+       Role
+     </label>
+
+     <input
+       defaultValue=""
+       required
+       className={Home.getstartedinput}
+       {...register('role')}
+       placeholder="e.g. Software Engineer"
+       type="text"
+     />
+   </div>
+
+   <div className={Home.resumelinkinfo}>
+     <label className={Home.getstartedlabel} htmlFor="">
+       Phone number
+     </label>
+
+     <input
+       defaultValue=""
+       required
+       className={Home.getstartedinput}
+       {...register('phonenumber')}
+       placeholder="+23470..."
+       type="text"
+     />
+   </div>
+
+   <div className={Home.resumelinkinfo}>
+     <label className={Home.getstartedlabel} htmlFor="">
+       Email
+     </label>
+
+     <input
+       defaultValue=""
+       required
+       className={Home.getstartedinput}
+       {...register('email')}
+       placeholder="abc@gmail.com"
+       type="email"
+     />
+   </div>
+
+   <div className={Home.resumelinkinfo}>
+     <label className={Home.getstartedlabel} htmlFor="">
+       Address
+     </label>
+
+     <input
+       defaultValue=""
+       required
+       className={Home.getstartedinput}
+       {...register('address')}
+       placeholder="Lagos, Nigeria"
+       type="text"
+     />
+   </div>
+
+   {/* <div className={Home.resumelinkinfo}>
+     <label className={Home.getstartedlabel} htmlFor="">
+       Profile Photo
+     </label>
+
+     <input
+       required
+       type="file"
+       className={Home.getstartedinput}
+       placeholder="Select an Image"
+       multiple
+       accept="image/*"
+       {...register('MyImage')}
+     />
+   </div> */}
+    {/* {
+                    loadingstate ? <button
+                      type="submit"
+                      className="bg-[#f64900] hover:bg-[#f64900] text-[#fff] font-semibold hover:text-[#fff] py-2 px-4 border border-[#f64900] hover:border-transparent rounded"
+                    >
+                      Loading...
+                    </button> :
+                      <button
+                        type="submit"
+                        className="bg-[#f64900] hover:bg-[#f64900] text-[#fff] font-semibold hover:text-[#fff] py-2 px-4 border border-[#f64900] hover:border-transparent rounded"
+                      >
+                        Get started
+                      </button>
+                  } */}
+
+
+
+
+
+</div>
+</div>
+</div>
+</div>
 
                                             <div className={SteptwoStyle.product_form}>
                                                 <div className={SteptwoStyle.product_link_info}>

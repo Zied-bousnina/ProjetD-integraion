@@ -6,7 +6,7 @@ const handler = async (req, res) => {
     try {
         const xata = getXataClient()
 
-        const record = await xata.db.basic_info.create({
+        const record = await xata.db.cv.create({
 
             Full_name: req.body.Full_name,
             Email: req.body.Email,

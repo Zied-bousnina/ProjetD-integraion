@@ -17,7 +17,7 @@ const menuItems = [
   { id: 1, label: "Home", icon: HomeIcon, link: "/" },
   { id: 2, label: "Demande de stage", icon: ArticleIcon, link: "/Student/demande_stage" },
   { id: 3, label: "RemplissageC_charge", icon: UsersIcon, link: "/Student/RemplissageC_charge" },
-  { id: 4, label: "Crée CV", icon: UsersIcon, link: "/cv/stepone" },
+  { id: 4, label: "Crée CV", icon: UsersIcon, link: "/cv/steptwo" },
   // { id: 4, label: "Manage Tutorials", icon: VideosIcon, link: "/tutorials" },
 ];
 
@@ -26,33 +26,60 @@ export default function SideBar({user =[], prof=[]}){
   const [isCollapsible, setIsCollapsible] = useState(false);
 
 
-  async function onSubmit() {
+  // async function onSubmit() {
+  //   const options = {
+  //     method: 'POST',
+  //     headers: {'Content-Type': 'application/json'},
+  //     body: JSON.stringify(user)
+  //   }
+  //   console.log(user)
+
+  //   await fetch('http://localhost:3000/api/auth/signup', options)
+  //     .then(res=> res.json())
+  //     .then((data)=>{
+  //       // alert("Account created")
+  //       // console.log('heyyyyyyyyyyyyyyyyyyyyyy')
+  //       // if(data) router.push('/login')
+  //     })
+  // }
+  async function onSubmit(values) {
     const options = {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(user)
+      body: JSON.stringify(values)
     }
 
     await fetch('http://localhost:3000/api/auth/signup', options)
       .then(res=> res.json())
       .then((data)=>{
         // alert("Account created")
-        // console.log('heyyyyyyyyyyyyyyyyyyyyyy')
         // if(data) router.push('/login')
       })
   }
 
-  useEffect(() => {
-    onSubmit()
-  }, [user])
+  const {data:session} = useSession()
+  if(user.length <1) {
+    console.log('not user')
+    console.log()
+    // useEffect(() => {
+      session &&onSubmit({...session.user, "role": "user"})
+    // }, [])
+  }
   // console.log("use effect")
 
 
 
-  const {data:session} = useSession()
 
 
-  console.log(prof)
+  session && console.log(session.user)
+
+// window.localStorage.setItem(
+//     'user_id',
+//     JSON.stringify({
+//         unique_id: prof[0]._id,
+//     }),
+// )
+// console.log(localStorage)
 
   //Check if is Admin
   const isAdmin =  user.length>0
@@ -61,8 +88,7 @@ export default function SideBar({user =[], prof=[]}){
   const router = useRouter();
 
 
-  const activeMenu = useMemo(
-    () => menuItems.find((menu) => menu.link === router.pathname),
+  const activeMenu = useMemo(() => menuItems.find((menu) => menu.link === router.pathname),
     [router.pathname]
   );
 
@@ -101,6 +127,7 @@ export default function SideBar({user =[], prof=[]}){
   // Google Sign OUt
   async function handlerSignOut(){
     await router.push('/')
+    localStorage.clear();
     signOut()
   }
 

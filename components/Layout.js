@@ -32,13 +32,42 @@ export default function Layout ({ children }) {
   const etudiant =data && data.filter(e=>(e.email === session.data.user.email) && e.role ==="user");
   const listDesProf =data&& data.filter(e=>(e.email === session.data.user.email) && e.role ==="prof")
   const prof =data&& data.filter(e=> e.role ==="prof")
-  // console.log(Users&&Users[0])
+
+
+  console.log(etudiant && etudiant[0]?._id)
+  console.log(Users&&Users[0])
+
+
+console.log(Users && Users?._id)
+console.log(etudiant && etudiant?._id)
+console.log(prof && prof?._id)
 
 
   const isAdmin =  Users&& Users.length>0
   const isProf = listDesProf&& listDesProf.length>0
   const isEtud = etudiant&& etudiant.length>0
 
+  if (typeof window !== 'undefined') {
+    console.log('You are on the browser')
+    localStorage.setItem(
+      'user_id',
+      JSON.stringify({
+          unique_id: isAdmin ? Users[0]?._id : isProf ? listDesProf[0]?._id : etudiant&& etudiant[0]?._id,
+          // unique_id:etudiant ? etudiant[0]?._id : prof ? prof&& prof[0]?._id : Users &&Users[0]?._id,
+      }),
+  )
+  localStorage.setItem(
+    'unique_id',
+
+         isAdmin ? Users[0]?._id : isProf ? listDesProf[0]?._id : etudiant&& etudiant[0]?._id,
+        // unique_id:etudiant ? etudiant[0]?._id : prof ? prof&& prof[0]?._id : Users &&Users[0]?._id,
+
+)
+    // 👉️ can use localStorage here
+  } else {
+    console.log('You are on the server')
+    // 👉️ can't use localStorage
+  }
 
   {
     data&& data.map(el=> {
@@ -58,7 +87,7 @@ export default function Layout ({ children }) {
 
 
        {/* <SideBarAdmin /> */}
-       {isAdmin ? <SideBarAdmin/>: isProf? <SideBarProf/>: <SideBar  prof={prof}/>  }
+       {isAdmin ? <SideBarAdmin/>: isProf? <SideBarProf/>: <SideBar  user={etudiant}/>  }
       <div className="bg-primary flex-1 p-4 text-black">
           {children}
       </div>

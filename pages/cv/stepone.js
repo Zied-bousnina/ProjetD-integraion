@@ -43,6 +43,7 @@ function Stepone() {
 
 
   const onSubmit = async (data) => {
+    console.log( data)
 
     reset({
       resumelink: '',
@@ -60,7 +61,7 @@ function Stepone() {
       const fileName = generateRandom(4)
       var formdata = new FormData()
       formdata.append('file', data.MyImage[0], '[PROXY]')
-      formdata.append('upload_preset', 'ml_default')
+      formdata.append('upload_preset', 'prime-asset')
       formdata.append('public_id', `${fileName}`)
       formdata.append('api_key', `${process.env.REACT_APP_CLOUDINARY_API_KEY}`)
 
@@ -71,7 +72,7 @@ function Stepone() {
       }
 
       fetch(
-        'https://api.cloudinary.com/v1_1/femakin/image/upload',
+        'https://api.cloudinary.com/v1_1/dcuafrhwc/auto/upload',
         requestOptions,
       )
         .then(async (response) => {

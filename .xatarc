@@ -1,0 +1,6 @@
+{
+  "databaseURL": "https://Zied-bousnina-s-workspace-lf56du.us-east-1.xata.sh/db/cv",
+  "codegen": {
+    "output": "src/xata.ts"
+  }
+}

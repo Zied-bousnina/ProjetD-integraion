@@ -8,7 +8,7 @@ import {
 
 const tables = [
   {
-    name: "basic_info",
+    name: "cv",
     columns: [
       { name: "Full_name", type: "string", unique: true },
       { name: "Email", type: "email", unique: true },
@@ -31,7 +31,7 @@ const tables = [
 export type SchemaTables = typeof tables;
 export type InferredTypes = SchemaInference<SchemaTables>;
 
-export type BasicInfo = InferredTypes["basic_info"];
+export type BasicInfo = InferredTypes["cv"];
 export type BasicInfoRecord = BasicInfo & XataRecord;
 
 export type Users = InferredTypes["users"];
@@ -46,7 +46,7 @@ const DatabaseClient = buildClient();
 
 const defaultOptions = {
   databaseURL:
-    " https://Oluwafemi-Akinyemi-s-workspace-fdbhbv.us-east-1.xata.sh/db/basic_info",
+    "https://Zied-bousnina-s-workspace-lf56du.us-east-1.xata.sh/db/cv",
 
   // databaseURL:
   //   "https://Oluwafemi-Akinyemi-s-workspace-fdbhbv.eu-west-1.xata.sh/db/basic_info",
